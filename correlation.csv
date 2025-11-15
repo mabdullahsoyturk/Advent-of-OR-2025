@@ -1,0 +1,4 @@
+﻿asset,Retail_Mortgage,Retail_Revolving,Retail_Other
+Retail_Mortgage,1,0.75,0.5
+Retail_Revolving,0.75,1,0.1
+Retail_Other,0.5,0.1,1
