@@ -1,0 +1,79 @@
+<!--
+    Quick start template for Python based Xpress Insight applications.
+    Copyright (c) 2020-2023 Fair Isaac Corporation. All rights reserved.
+-->
+<vdl version="5">
+    <vdl-page>
+        <vdl-section id="ClientResources" layout="fluid">
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Project Structure
+"></span></h1>
+                    <p><span vdl-text="To facilitate the extension of this solution, we next provide an overview of the project structure and the role of each subfolder and file. Below is a visual of the organization of the project."></span></p>
+                    <p><img src="images/Folder_Structure.png"></p>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section id="ClientResources" layout="fluid">
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Attachments"></span></h1><span vdl-text="This folder contains the default input data that will be loaded to the model. These can be modified through the User Interface. "></span>
+                    <ul>
+                        <li><span vdl-text="assets.csv- contains the control parameters of each of the assets (e.g. maximum exposure increase and decrease)"></span></li>
+                        <li><span vdl-text="segments.csv- contains the segment level details and control parameters."></span></li>
+                    </ul>
+                    <p></p>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section id="ClientResources" layout="fluid">
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Client Resources"></span></h1><span vdl-text="This folder contains the files used to create the webpages with which users will interact consisting of: "></span>
+                    <ul>
+                        <li><span vdl-text="vdl files- These files define the visual components of the application. If you want to change the appearance, you can modify the respective files here using the &quot;Drag and drop&quot; or &quot;code&quot; options in Xpress Workbench."></span></li>
+                        <li><span vdl-text="images folder- contains the image files of anything used in the user interface. For example, the Folder Structure shown above is read from the file images/Folder_Structure.png file."></span></li>
+                    </ul>
+                    <p></p>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section id="ModelResources" layout="fluid">
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Model Resources"></span></h1><span vdl-text="This folder contains a file with the names of the packages necessary for our python enviroment. "></span>
+                    <ul>
+                        <li><span vdl-text="environment.yml- This file contains the names of all the python packages that will be used."></span></li>
+                    </ul>
+                    <p></p>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section id="ModelResources" layout="fluid">
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Python Source"></span></h1><span vdl-text="This folder contains the python source files with the code for data manipulation and model building."></span>
+                    <ul>
+                        <li><span vdl-text="application.py - contains the main flow of the application that include the three components of an insight app."></span>
+                            <ul>
+                                <li><span vdl-text="Data schema- declaration of all the data components, called entities, that will be used in the application."></span></li>
+                                <li><span vdl-text="Load function- Code that is run when the &quot;LOAD&quot; action is executed."></span></li>
+                                <li><span vdl-text="Run function- Code that is run when the &quot;Run&quot; action is executed."></span></li>
+                            </ul>
+                        </li>
+                        <li><span vdl-text="domain.py- Contains the data classes, structures, and attributes used in the application. When extending the application with new data, modify the code here in the corresponding class."></span></li>
+                        <li><span vdl-text="entry_point.py- Contains at a high-level the code that is executed in &quot;Run&quot; mode."></span></li>
+                        <li><span vdl-text="instance_manager.py- Contains the functions related to data management and building of the data classes and structures declared in domain.py. It is based on the InstanceManager class which contains the following functions."></span>
+                            <ul>
+                                <li><span vdl-text="from_csv(df_segments, df_assets) - a function that loads the corresponding data from the python pandas dataframes to return an instance of the Portfolio class declared in domain.py which contains all relevant data for the optimization."></span></li>
+                                <li><span vdl-text="new_portfolio(portfolio, new_distribution) - a function that loads an initial portfolio and then modifies it based on the optimized rebalancing described in &quot;new_distribution&quot;. The result is returned as a new Portfolio instance."></span></li>
+                            </ul>
+                        </li>
+                        <li><span vdl-text="portfolio_optimizer.py- Contains the declaration of the variables, constraints and objective function of the mathematical model. It also contains the instruction to optimize."></span></li>
+                    </ul>
+                    <p></p>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+    </vdl-page>
+</vdl>

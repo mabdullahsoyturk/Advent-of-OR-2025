@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    File Type: Model companion file. Configures an Xpress Insight application.
+    Purpose: Defines the custom views used by the application.
+    Copyright (c) 2020-2023 Fair Isaac Corporation. All rights reserved.
+-->
+<model-companion xmlns="http://www.fico.com/xpress/optimization-modeler/model-companion" version="5.0">
+    <attachment-config>
+		<attachment-tags>
+			<attachment-tag name="assets-file" usage="single-file" mandatory="true">
+				<description>A data source containing assets information required by the Python model before it can execute (load or run). Must be a CSV file.</description>
+				<attachments>
+					<attachment>assets.csv</attachment>
+				</attachments>
+			</attachment-tag>
+			<attachment-tag name="segments-file" usage="single-file" mandatory="true">
+				<description>A data source containing segment information required by the Python model before it can execute (load or run). Must be a CSV file.</description>
+				<attachments>
+					<attachment>segments.csv</attachment>
+				</attachments>
+			</attachment-tag>
+			<attachment-tag name="correlation-file" usage="single-file" mandatory="true">
+				<description>A data source containing correlation information amongst assets required by the Python model before it can execute (load or run). Must be a CSV file.</description>
+				<attachments>
+					<attachment>correlation.csv</attachment>
+				</attachments>
+			</attachment-tag>
+		</attachment-tags>
+	</attachment-config>
+    <client>
+        <view-group title="Main">
+            <vdl-view title="Introduction" path="introduction.vdl" default="true"/>
+            <vdl-view title="Project Structure" path="project_info.vdl"/>
+            <vdl-view title="Input" path="input.vdl" />
+            <vdl-view title="Results" path="result.vdl" />
+            <vdl-view title="Comparisons" path="comparisons.vdl"/>
+        </view-group>
+    </client>
+</model-companion>

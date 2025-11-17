@@ -1,0 +1,72 @@
+<!--
+    Quick start template for Python based Xpress Insight applications.
+    Copyright (c) 2020-2023 Fair Isaac Corporation. All rights reserved.
+-->
+<vdl version="5">
+    <vdl-page>
+        <vdl-section id="welcome" layout="fluid">
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Welcome to Portfolio Rebalancing"></span></h1><span vdl-text="This is a base application that the team can leverage to respond to regular and ad-hoc requests for strategy recommendations under different economic scenarios.
+
+Based on the sessions held, the requests seem to center around scenario analysis of changing market, and economic conditions with the purpose of determining a set of potential actions, each with some related cost, that ensure measures of uncertainty, concentration risk, and profitability across the consumer lending portfolio are maintained within specific guardrails.
+"></span></vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section id="welcome" layout="fluid">
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Data Schema and Structure"></span></h1><span vdl-text="To make the model as flexible as possible, we use the following hierarchical data schema."></span>
+                    <ul>
+                        <li><span vdl-text="Increasing exposure to a segment by increasing originations"></span></li>
+                        <li><span vdl-text="Decreasing exposure to a segment by offloading some of the loans through either selling or repackaging."></span></li>
+                    </ul>
+                </vdl-column>
+            </vdl-row>
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Decisions"></span></h1>
+                    <p><span vdl-text="The principal action that can be done to meet the profitability, risk, and exposure requirements is the rebalancing of the exposure in each segment by either:"></span></p>
+                    <ul>
+                        <li><span vdl-text="Portfolio consists of the total set of assets/loans that are being considered for rebalancing."></span>
+                            <ul>
+                                <li><span vdl-text="An Asset consists of a type of loan issued, e.g. Revolving, Mortgage, etc., and consists of multiple segments of that asset."></span>
+                                    <ul>
+                                        <li><span vdl-text="A Segment consists of a subset of loans of the asset type granted along with its relevant metrics."></span>
+                                            <ul>
+                                                <li><span vdl-text="Exposure- Total Loan Balance of this segment."></span></li>
+                                                <li><span vdl-text="Risk Weight- The percentage of the exposure that will contribute toward our risk management metric from this segment."></span></li>
+                                                <li><span vdl-text="Profitability- Profit as a percentage of the Exposure of the segment."></span></li>
+                                                <li><span vdl-text="Origination/Selling Cost- per $ cost of increasing/decreasing the exposure in this segment"></span></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </vdl-column>
+            </vdl-row>
+            <vdl-row>
+                <vdl-column size="12">
+                    <h1><span vdl-text="Controls"></span></h1>
+                    <p><span vdl-text="The current model allows the user to control the optimization through the following parameters:"></span></p>
+                    <ul>
+                        <li><span vdl-text="Risk"></span>
+                            <ul>
+                                <li><span vdl-text="Maximum Risk Weight- Portfolio Level Maximum Average Risk Weight 
+"></span></li>
+                            </ul>
+                        </li>
+                        <li><span vdl-text="Exposure"></span>
+                            <ul>
+                                <li><span vdl-text="Maximum Decrease- Asset Level Maximum Exposure Decrease "></span></li>
+                                <li><span vdl-text="Maximum Increase- Asset Level Maximum Exposure Increase "></span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+    </vdl-page>
+</vdl>

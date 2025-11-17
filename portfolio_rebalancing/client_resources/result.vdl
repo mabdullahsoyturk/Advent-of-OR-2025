@@ -1,0 +1,46 @@
+<!--
+    Quick start template for Python based Xpress Insight applications.
+    Copyright (c) 2020-2023 Fair Isaac Corporation. All rights reserved.
+-->
+<vdl version="5">
+    <vdl-page>
+        <vdl-section heading="Asset Information" vdl-if="=scenario.summaryData.hasResultData">
+            <vdl-row>
+                <vdl-column size="12" heading="Optimized Portfolio Results Summary">
+                    <vdl-table>
+                        <vdl-table-column entity="Portfolio_Result_net_profit"></vdl-table-column>
+                        <vdl-table-column entity="Portfolio_Result_expected_profit"></vdl-table-column>
+                        <vdl-table-column entity="Portfolio_Result_transaction_costs"></vdl-table-column>
+                        <vdl-table-column entity="Portfolio_Result_average_risk_weight"></vdl-table-column>
+                        <vdl-table-column entity="Portfolio_Result_optimized_exposure"></vdl-table-column>
+                        <vdl-table-column entity="Portfolio_Result_downside"></vdl-table-column>
+                    </vdl-table>
+                </vdl-column>
+            </vdl-row>
+            <vdl-row>
+                <vdl-column size="12">
+                    <vdl-table>
+                        <vdl-table-column entity="Assets_max_exposure_decrease" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Assets_max_exposure_increase" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Assets_stdev_profitability" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Assets_exposure"></vdl-table-column>
+                        <vdl-table-column entity="Assets_risk_weight"></vdl-table-column>
+                        <vdl-table-column entity="Assets_optimized_exposure"></vdl-table-column>
+                        <vdl-table-column entity="Assets_average_risk_weight"></vdl-table-column>
+                    </vdl-table>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section vdl-if="=scenario.summaryData.hasResultData">
+            <vdl-row></vdl-row>
+            <vdl-row>
+                <vdl-column>
+                    <vdl-chart title="='Exposure per asset for  ' + scenario.props.name">
+                        <vdl-chart-series entity="Assets_exposure"></vdl-chart-series>
+                        <vdl-chart-series entity="Assets_optimized_exposure"></vdl-chart-series>
+                    </vdl-chart>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+    </vdl-page>
+</vdl>

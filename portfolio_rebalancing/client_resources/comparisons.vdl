@@ -1,0 +1,46 @@
+<!--
+    Quick start template for Python based Xpress Insight applications.
+    Copyright (c) 2020-2023 Fair Isaac Corporation. All rights reserved.
+-->
+<vdl version="5">
+    <vdl-page>
+        <vdl-section vdl-if="=scenario.summaryData.hasResultData" heading="Comparative Results">
+            <vdl-row>
+                <vdl-column>
+                    <vdl-table>
+                        <vdl-table-column entity="Segments_asset"></vdl-table-column>
+                        <vdl-table-column entity="Segments_average_profitability"></vdl-table-column>
+                        <vdl-table-column entity="Segments_risk_weight"></vdl-table-column>
+                        <vdl-table-column entity="Segments_rel_origination_cost"></vdl-table-column>
+                        <vdl-table-column entity="Segments_rel_sell_cost"></vdl-table-column>
+                        <vdl-table-column entity="Segments_exposure"></vdl-table-column>
+                        <vdl-table-column entity="Segments_optimized_exposure" heading="='Optimized Exposure ' + s.props.name" vdl-repeat="=s,i in scenarios" scenario="=i"></vdl-table-column>
+                    </vdl-table>
+                </vdl-column>
+            </vdl-row>
+            <vdl-row>
+                <vdl-column vdl-if="=scenario.summaryData.hasResultData" size="6">
+                    <vdl-chart title="Net Profit">
+                        <vdl-chart-axis axis="y" title="1000 $"></vdl-chart-axis>
+                        <vdl-chart-axis axis="x" title="Net Profit"></vdl-chart-axis>
+                        <vdl-chart-series entity="Portfolio_Result_net_profit" vdl-repeat="=s,i in scenarios" scenario="=i"></vdl-chart-series>
+                    </vdl-chart>
+                </vdl-column>
+                <vdl-column vdl-if="=scenario.summaryData.hasResultData" size="6">
+                    <vdl-chart title="Profitability Downside">
+                        <vdl-chart-axis axis="y" title="1000 $"></vdl-chart-axis>
+                        <vdl-chart-axis axis="x" title="Profitability Downside"></vdl-chart-axis>
+                        <vdl-chart-series entity="Portfolio_Result_downside" vdl-repeat="=s,i in scenarios" scenario="=i"></vdl-chart-series>
+                    </vdl-chart>
+                </vdl-column>
+            </vdl-row>
+            <vdl-row>
+                <vdl-column vdl-if="=scenario.summaryData.hasResultData" size="12">
+                    <vdl-chart title="Average Risk Weight per Asset">
+                        <vdl-chart-series scenario="=i" vdl-repeat="=s,i in scenarios" entity="Assets_average_risk_weight"></vdl-chart-series>
+                    </vdl-chart>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+    </vdl-page>
+</vdl>

@@ -1,0 +1,64 @@
+type: python
+runtime: ghcr.io/nextmv-io/runtime/pyomo:latest
+files:
+  - python_source/
+  - portfolio_rebalancing.xml
+python:
+  pip-requirements: requirements.txt
+execution:
+  entrypoint: python_source/application.py
+configuration:
+  content:
+    format: multi-file
+    multi-file:
+      input:
+        path: attachments
+      output:
+        solutions: work_dir/outputs/solutions
+        statistics: work_dir/outputs/statistics/statistics.json
+        assets: work_dir/outputs/assets/assets.json
+  options:
+    items:
+      - name: outputlog
+        description: Whether to output log information
+        required: false
+        option_type: int
+        default: 1
+        additional_attributes:
+          min: 0
+          max: 1
+          step: 1
+        ui:
+          control_type: slider
+          display_name: Output Log
+      - name: bariterlimit
+        description: Barrier limit number of iterations
+        required: false
+        option_type: int
+        default: 1000
+        additional_attributes:
+          min: 10
+          max: 10000
+          step: 10
+        ui:
+          control_type: slider
+          display_name: Barrier Limit
+      - name: miprelstop
+        description: MIP Relative Stop Tolerance
+        required: false
+        option_type: float
+        default: 0.01
+        additional_attributes:
+          min: 0.0001
+          max: 0.99
+        ui:
+          control_type: input
+          display_name: MIP Relative Stop Tolerance
+      - name: setoutputenabled
+        description: Enable or disable solver output
+        required: false
+        option_type: bool
+        default: true
+        ui:
+          control_type: toggle
+          display_name: Set Output Enabled

@@ -1,0 +1,5 @@
+xpressinsight==1.15.0
+xpress==9.8.0
+scipy==1.16.3
+nextmv[all]==0.35.1
+backports.tarfile>=1.2

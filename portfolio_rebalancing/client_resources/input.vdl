@@ -1,0 +1,90 @@
+<!--
+    Quick start template for Python based Xpress Insight applications.
+    Copyright (c) 2020-2023 Fair Isaac Corporation. All rights reserved.
+-->
+<vdl version="5">
+    <vdl-page>
+        <vdl-header>
+            <vdl-action-group name="action_group_1">
+                <vdl-action-execute></vdl-action-execute>
+            </vdl-action-group>
+        </vdl-header>
+        <vdl-section heading="Risk Controls">
+            <vdl-row>
+                <vdl-column size="6">
+                    <vdl-form>
+                        <vdl-field label="Consider Profit Variability" entity="ConsiderRisk"></vdl-field>
+                    </vdl-form>
+                </vdl-column>
+                <vdl-column size="6">
+                    <vdl-form>
+                        <vdl-field label="Portfolio Risk Weight" entity="MaxPortfolioRiskWeight"></vdl-field>
+                    </vdl-form>
+                </vdl-column>
+            </vdl-row>
+            <vdl-row vdl-visible="=scenario.entities.ConsiderRisk.value">
+                <vdl-column size="6">
+                    <vdl-form>
+                        <vdl-field label="Confidence Level" entity="ConfidenceLevel"></vdl-field>
+                    </vdl-form>
+                </vdl-column>
+                <vdl-column size="6">
+                    <vdl-form>
+                        <vdl-field label="Profit Objective Function Weight" entity="ProfitWeight"></vdl-field>
+                    </vdl-form>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section heading="Asset Information">
+            <vdl-row>
+                <vdl-column size="12">
+                    <vdl-table>
+                        <vdl-table-column entity="Assets_max_exposure_decrease" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Assets_max_exposure_increase" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Assets_stdev_profitability" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Assets_risk_weight"></vdl-table-column>
+                        <vdl-table-column entity="Assets_exposure"></vdl-table-column>
+                        <vdl-table-column entity="Assets_optimized_exposure"></vdl-table-column>
+                        <vdl-table-column entity="Assets_average_risk_weight"></vdl-table-column>
+                    </vdl-table>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section heading="Segment Information">
+            <vdl-row>
+                <vdl-column size="12">
+                    <vdl-table>
+                        <vdl-table-column entity="Segments_asset"></vdl-table-column>
+                        <vdl-table-column entity="Segments_average_profitability" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Segments_risk_weight" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Segments_rel_origination_cost" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Segments_rel_sell_cost" editable="true"></vdl-table-column>
+                        <vdl-table-column entity="Segments_exposure"></vdl-table-column>
+                        <vdl-table-column entity="Segments_optimized_exposure"></vdl-table-column>
+                        <vdl-table-column entity="Segments_exposure_change"></vdl-table-column>
+                    </vdl-table>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section>
+            <vdl-row>
+                <vdl-column>
+                    <vdl-button label="Run Optimization" vdl-event="click:actions.action_group_1"></vdl-button>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+        <vdl-section vdl-if="=scenario.summaryData.hasResultData">
+            <vdl-row>
+                <vdl-column heading="Optimized Portfolio Results Summary"><span vdl-text="='Expected Profit of ' + scenario.entities.ExpectedProfit.value + '  and Transaction Costs ' + scenario.entities.TransactionCosts.value + ' average risk weight of '+ scenario.entities.ARW.value +' new exposure of ' + scenario.entities.OptimizedExposure.value + ' from initial exposure of '+scenario.entities.InitialExposure.value+'.'"></span></vdl-column>
+            </vdl-row>
+            <vdl-row>
+                <vdl-column>
+                    <vdl-chart title="='Exposure per asset for  ' + scenario.props.name">
+                        <vdl-chart-series entity="Assets_exposure"></vdl-chart-series>
+                        <vdl-chart-series entity="Assets_optimized_exposure"></vdl-chart-series>
+                    </vdl-chart>
+                </vdl-column>
+            </vdl-row>
+        </vdl-section>
+    </vdl-page>
+</vdl>
