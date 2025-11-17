@@ -1,7 +1,6 @@
+import gamspy as gp
 import numpy as np
 import pandas as pd
-
-import gamspy as gp
 
 
 def main(

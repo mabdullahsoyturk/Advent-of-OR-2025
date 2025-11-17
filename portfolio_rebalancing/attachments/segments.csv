@@ -1,0 +1,16 @@
+asset,segment_id,exposure,average_profitability,risk_weight,rel_sell_cost,rel_origination_cost
+Retail_Mortgage,MORT_PRIME_01,45000,0.028,0.15,0.03,0.03
+Retail_Mortgage,MORT_STANDARD_01,32000,0.035,0.35,0.05,0.05
+Retail_Mortgage,MORT_SUBPRIME_01,8500,0.065,0.8,0.1,0.1
+Retail_Mortgage,MORT_HELOC_01,12000,0.042,1,0.05,0.05
+Retail_Revolving,CC_PRIME_01,5200,0.145,0.5,0.03,0.03
+Retail_Revolving,CC_STANDARD_01,8900,0.185,0.9,0.05,0.05
+Retail_Revolving,CC_SUBPRIME_01,3400,0.285,1.5,0.1,0.1
+Retail_Revolving,LOC_PRIME_01,2800,0.095,0.75,0.5,0.03
+Retail_Revolving,LOC_STANDARD_01,4100,0.125,1,0.05,0.05
+Retail_Other,AUTO_PRIME_01,8200,0.055,0.5,0.03,0.03
+Retail_Other,AUTO_STANDARD_01,6800,0.085,0.75,0.05,0.05
+Retail_Other,AUTO_SUBPRIME_01,2100,0.165,1.5,0.1,0.1
+Retail_Other,PERSONAL_PRIME_01,3500,0.095,0.5,0.03,0.03
+Retail_Other,PERSONAL_STANDARD_01,4200,0.145,0.75,0.05,0.05
+Retail_Other,PERSONAL_SUBPRIME_01,1800,0.245,1.5,0.1,0.1
