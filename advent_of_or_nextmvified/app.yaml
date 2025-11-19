@@ -1,0 +1,72 @@
+type: python
+runtime: ghcr.io/nextmv-io/runtime/python:3.11
+files:
+  - main.py
+python:
+  pip-requirements: requirements.txt
+execution:
+  entrypoint: main.py
+configuration:
+  content:
+    format: multi-file
+    multi-file:
+      input:
+        path: inputs
+      output:
+        solutions: outputs/outputs/solutions
+        statistics: outputs/outputs/statistics/statistics.json
+        assets: outputs/outputs/assets/assets.json
+  options:
+    items:
+      - name: profit_weight
+        description: Controls how the optimization balances profit maximization versus risk minimization when consider_risk is enabled
+        required: false
+        option_type: float
+        default: -1
+        ui:
+          control_type: input
+          display_name: Profit Weight
+      - name: consider_risk
+        description: Whether to consider risk in the portfolio optimization
+        required: false
+        option_type: bool
+        default: true
+        ui:
+          control_type: toggle
+          display_name: Consider Risk?
+      - name: confidence_interval
+        description: Level of confidence used in the risk calculation
+        required: false
+        option_type: float
+        default: 0.95
+        additional_attributes:
+          min: 0
+          max: 1
+          step: 0.01
+        ui:
+          control_type: slider
+          display_name: Confidence Interval
+      - name: risk_weight_limit
+        description: Maximum allowable average risk weight for the portfolio
+        required: false
+        option_type: float
+        default: 0.5
+        additional_attributes:
+          min: 0
+          max: 1
+          step: 0.01
+        ui:
+          control_type: slider
+          display_name: Risk Weight Limit
+      - name: new_total_exposure_initial_value
+        description: Initial value for total exposure variable (starting point for solver)
+        required: false
+        option_type: float
+        default: 1
+        additional_attributes:
+          min: 0
+          max: 2
+          step: 0.1
+        ui:
+          control_type: slider
+          display_name: Initial Total Exposure Value
