@@ -19,6 +19,7 @@ def main(
             records=assets["asset"].unique(),
         )
         S = gp.Set(description="Set of segments", records=segments["segment_id"])
+        AS = gp.Set(domain=[A, S], records=segments[['asset', 'segment_id']])
         J = gp.Alias(alias_with=A)
 
         profitability = gp.Parameter(
@@ -113,9 +114,9 @@ def main(
             domain=[A, S],
             description="This establishes the relationship between the main segment variables and their increase/decrease components.",
         )
-        segment_relationship[...] = (
-            segment_vars[A, S]
-            == 1 + segment_increase_vars[A, S] - segment_decrease_vars[A, S]
+        segment_relationship[AS] = (
+            segment_vars[AS]
+            == 1 + segment_increase_vars[AS] - segment_decrease_vars[AS]
         )
 
         # 2. Asset Exposure Relationship Constraint
@@ -124,7 +125,7 @@ def main(
             description="This establishes the relationship between the per segment ratio and the asset level exposure of the rebalanced portfolio.",
         )
         asset_exposure[A] = (
-            gp.Sum(S, exposure[A, S] * segment_vars[A, S]) == portfolio_exposure_vars[A]
+            gp.Sum(AS[A, S], exposure[AS] * segment_vars[AS]) == portfolio_exposure_vars[A]
         )
 
         # 3. Risk Weight Constraint
@@ -132,7 +133,7 @@ def main(
             description="This constraint keeps the average risk weight at the portfolio-level below the user-defined threshold.",
         )
         risk_weight[...] = (
-            gp.Sum([A,S], r[A, S] * exposure[A, S] * segment_vars[A, S])
+            gp.Sum(AS, r[AS] * exposure[AS] * segment_vars[AS])
             <= risk_weight_limit * new_total_exposure
         )
 
@@ -146,11 +147,11 @@ def main(
 
         ### --- Objectives --- ###
         # 1. Maximize expected net profit
-        profit = gp.Sum((A, S), profitability * exposure * segment_vars)
+        profit = gp.Sum(AS, profitability[AS] * exposure[AS] * segment_vars[AS])
         transaction_cost = gp.Sum(
-            (A, S),
-            rel_origination_cost * exposure * segment_increase_vars
-            + rel_sell_cost * exposure * segment_decrease_vars,
+            AS,
+            rel_origination_cost[AS] * exposure[AS] * segment_increase_vars[AS]
+            + rel_sell_cost[AS] * exposure[AS] * segment_decrease_vars[AS],
         )
         profit_objective_variable = gp.Variable()
         net_profit = profit - transaction_cost == profit_objective_variable ## Why is this done this way.
@@ -198,7 +199,7 @@ def main(
                 alpha[...] = 0
                 model.equations.append(risk_equation)
                 model.problem = gp.Problem.NLP
-                model.solve(solver="xpress", output=sys.stdout)
+                model.solve(solver="xpress", output=sys.stdout, options=gp.Options(relative_optimality_gap=0.01))
             else:  # weighted
                 model.equations.append(risk_equation)
                 model.problem = gp.Problem.NLP
@@ -225,3 +226,4 @@ def get_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
 if __name__ == "__main__":
     segments, assets, correlation = get_data()
     main(segments, assets, correlation)
+
