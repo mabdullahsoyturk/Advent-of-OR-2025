@@ -70,3 +70,12 @@ configuration:
         ui:
           control_type: slider
           display_name: Initial Total Exposure Value
+      - name: relative_optimality_gap
+        description: Relative optimality gap for the solver
+        required: false
+        option_type: float
+        default: 0.01
+        additional_attributes:
+          min: 0
+          max: 1
+          step: 0.01

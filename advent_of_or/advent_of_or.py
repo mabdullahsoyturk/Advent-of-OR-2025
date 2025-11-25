@@ -1,6 +1,6 @@
 import sys
+
 import gamspy as gp
-import numpy as np
 import pandas as pd
 from scipy.stats import norm
 
@@ -19,7 +19,7 @@ def main(
             records=assets["asset"].unique(),
         )
         S = gp.Set(description="Set of segments", records=segments["segment_id"])
-        AS = gp.Set(domain=[A, S], records=segments[['asset', 'segment_id']])
+        AS = gp.Set(domain=[A, S], records=segments[["asset", "segment_id"]])
         J = gp.Alias(alias_with=A)
 
         profitability = gp.Parameter(
@@ -105,8 +105,8 @@ def main(
             description="Total exposure in new rebalanced portfolio for asset a",
             type="Positive",
         )
-        portfolio_exposure_vars.lo[A] = (1-lo_a[A]) * current_asset_exposure[A]
-        portfolio_exposure_vars.up[A] = (1+up_a[A]) * current_asset_exposure[A]
+        portfolio_exposure_vars.lo[A] = (1 - lo_a[A]) * current_asset_exposure[A]
+        portfolio_exposure_vars.up[A] = (1 + up_a[A]) * current_asset_exposure[A]
 
         ### --- Constraints --- ###
         # 1. Segment Relationship Constraint
@@ -125,7 +125,8 @@ def main(
             description="This establishes the relationship between the per segment ratio and the asset level exposure of the rebalanced portfolio.",
         )
         asset_exposure[A] = (
-            gp.Sum(AS[A, S], exposure[AS] * segment_vars[AS]) == portfolio_exposure_vars[A]
+            gp.Sum(AS[A, S], exposure[AS] * segment_vars[AS])
+            == portfolio_exposure_vars[A]
         )
 
         # 3. Risk Weight Constraint
@@ -154,7 +155,9 @@ def main(
             + rel_sell_cost[AS] * exposure[AS] * segment_decrease_vars[AS],
         )
         profit_objective_variable = gp.Variable()
-        net_profit = profit - transaction_cost == profit_objective_variable ## Why is this done this way.
+        net_profit = (
+            profit - transaction_cost == profit_objective_variable
+        )  ## Why is this done this way.
         profit_equation = gp.Equation(definition=net_profit)
 
         # 2. Minimize risk
@@ -199,7 +202,11 @@ def main(
                 alpha[...] = 0
                 model.equations.append(risk_equation)
                 model.problem = gp.Problem.NLP
-                model.solve(solver="xpress", output=sys.stdout, options=gp.Options(relative_optimality_gap=0.01))
+                model.solve(
+                    solver="xpress",
+                    output=sys.stdout,
+                    options=gp.Options(relative_optimality_gap=0.01),
+                )
             else:  # weighted
                 model.equations.append(risk_equation)
                 model.problem = gp.Problem.NLP
@@ -226,4 +233,3 @@ def get_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
 if __name__ == "__main__":
     segments, assets, correlation = get_data()
     main(segments, assets, correlation)
-
